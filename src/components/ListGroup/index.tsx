@@ -1,3 +1,3 @@
-import ListGroup from './LIstGroup';
+import ListGroup from './ListGroup';
 
 export default ListGroup;
