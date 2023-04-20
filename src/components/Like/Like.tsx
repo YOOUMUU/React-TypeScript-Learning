@@ -1,18 +1,24 @@
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { useState } from 'react';
 
 interface Props {
   size: number;
-  isLike: boolean;
   onCheck: () => void;
 }
 
-const Like = ({ size, isLike, onCheck }: Props) => {
+const Like = ({ size, onCheck }: Props) => {
+  const [isLike, setIsLike] = useState(false);
+  const toggle = () => {
+    setIsLike(!isLike);
+    onCheck();
+  };
+
   return (
     <div>
       {isLike ? (
-        <AiFillHeart color="red" onClick={onCheck} size={size} />
+        <AiFillHeart color="red" onClick={toggle} size={size} />
       ) : (
-        <AiOutlineHeart color="gray" onClick={onCheck} size={size} />
+        <AiOutlineHeart color="gray" onClick={toggle} size={size} />
       )}
     </div>
   );

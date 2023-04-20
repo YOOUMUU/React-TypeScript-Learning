@@ -6,9 +6,7 @@ import { CiAirportSign1 } from 'react-icons/ci';
 import { useState } from 'react';
 
 function App() {
-  const [isLike, setIsLike] = useState(false);
-
-  return <Like size={60} isLike={isLike} onCheck={() => setIsLike(!isLike)} />;
+  return <Like size={60} onCheck={() => console.log('checked')} />;
 }
 
 export default App;
