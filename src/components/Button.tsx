@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface Props {
   children: string;
-  color?: "primary" | "secondary" | "danger";
+  color?: 'primary' | 'secondary' | 'danger';
   onClick: () => void;
 }
 
-const Button = ({ children, color = "primary", onClick }: Props) => {
+const Button = ({ children, color = 'primary', onClick }: Props) => {
   return (
     <button onClick={onClick} className={`btn btn-${color}`}>
       {children}

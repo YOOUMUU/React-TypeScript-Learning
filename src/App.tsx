@@ -1,11 +1,11 @@
-import ListGroup from "./components/ListGroup/index";
-import "./App.css";
+import ListGroup from './components/ListGroup/index';
+import './App.css';
 
 function App() {
-  const items = ["New York", "Tokyo", "Beijing"];
+  const items = ['New York', 'Tokyo', 'Beijing'];
   return (
     <>
-      <ListGroup items={items} heading="List" onSelectItem={() => {}} />
+      <ListGroup items={items} heading='List' onSelectItem={() => {}} />
     </>
   );
 }

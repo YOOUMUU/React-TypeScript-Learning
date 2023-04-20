@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -7,11 +7,9 @@ interface Props {
 
 const Alert = ({ children, onClose }: Props) => {
   return (
-    <div
-      className="alert alert-primary alert-dismissible"
-    >
+    <div className='alert alert-primary alert-dismissible'>
       {children}
-      <button onClick={onClose} type="button" className="btn-close"></button>
+      <button onClick={onClose} type='button' className='btn-close'></button>
     </div>
   );
 };
