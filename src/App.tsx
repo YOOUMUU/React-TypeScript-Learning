@@ -6,7 +6,19 @@ import { CiAirportSign1 } from 'react-icons/ci';
 import { useState } from 'react';
 
 function App() {
-  return <Like size={60} onCheck={() => console.log('checked')} />;
+  const [game, setGame] = useState({
+    id: 1,
+    player: {
+      name: 'John',
+    },
+  });
+
+  const handleClick = () => {
+    console.log(game.player.name);
+    setGame({ ...game, player: { ...game.player, name: 'Bob' } });
+  };
+
+  return <Button onClick={handleClick}>Change Player Name</Button>;
 }
 
 export default App;
