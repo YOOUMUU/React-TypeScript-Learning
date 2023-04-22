@@ -4,18 +4,21 @@ import Like from './components/Like/Like';
 import './App.css';
 import { CiAirportSign1 } from 'react-icons/ci';
 import { useState } from 'react';
+import { produce } from 'immer';
 
 function App() {
-  const [game, setGame] = useState({
-    id: 1,
-    player: {
-      name: 'John',
-    },
+  const [pizza, setPizza] = useState({
+    name: 'Spicy Pepperoni',
+    toppings: ['Moshroom'],
   });
 
   const handleClick = () => {
-    console.log(game.player.name);
-    setGame({ ...game, player: { ...game.player, name: 'Bob' } });
+    setPizza(
+      produce((draft) => {
+        draft.toppings.push('Cheese');
+      })
+    );
+    console.log(pizza.toppings);
   };
 
   return <Button onClick={handleClick}>Change Player Name</Button>;
