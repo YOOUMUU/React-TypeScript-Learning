@@ -16,10 +16,12 @@ const ExpandableText = ({ children, maxChars }: Props) => {
 
   return (
     <div>
-      <p>{newChars ? children.slice(0, newChars) + '...' : children}</p>
-      {maxChars && (
-        <button onClick={handleClick}>{moreToggle ? 'Less' : 'More'}</button>
-      )}
+      <p>
+        {newChars ? children.slice(0, newChars) + '...' : children}
+        {maxChars && (
+          <button onClick={handleClick}>{moreToggle ? 'Less' : 'More'}</button>
+        )}
+      </p>
     </div>
   );
 };
