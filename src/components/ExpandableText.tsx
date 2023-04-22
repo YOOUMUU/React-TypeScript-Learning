@@ -5,24 +5,20 @@ interface Props {
   maxChars?: number;
 }
 
-const ExpandableText = ({ children, maxChars }: Props) => {
-  const [moreToggle, setMoreToggle] = useState(false);
-  const [newChars, setNewChars] = useState(maxChars);
+const ExpandableText = ({ children, maxChars = 100 }: Props) => {
+  const [isExpanded, setExpended] = useState(false);
 
-  const handleClick = function () {
-    maxChars && moreToggle ? setNewChars(maxChars) : setNewChars(NaN);
-    setMoreToggle(!moreToggle);
-  };
+  if (children.length <= maxChars) return <p>{children}</p>;
+
+  const text = isExpanded ? children : children.substring(0, maxChars);
 
   return (
-    <div>
-      <p>
-        {newChars ? children.slice(0, newChars) + '...' : children}
-        {maxChars && (
-          <button onClick={handleClick}>{moreToggle ? 'Less' : 'More'}</button>
-        )}
-      </p>
-    </div>
+    <p>
+      {text}...
+      <button onClick={() => setExpended(!isExpanded)}>
+        {isExpanded ? 'Less' : 'More'}
+      </button>
+    </p>
   );
 };
 

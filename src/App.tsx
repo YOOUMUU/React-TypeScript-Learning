@@ -8,7 +8,7 @@ import { produce } from 'immer';
 
 function App() {
   return (
-    <ExpandableText maxChars={100}>
+    <ExpandableText maxChars={120}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Semper feugiat nibh
       sed pulvinar proin gravida. Nulla facilisi etiam dignissim diam quis enim
