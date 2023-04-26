@@ -11,6 +11,27 @@ function App() {
   const [error, setError] = useState('');
   const [isLoading, setLoading] = useState(false);
 
+  const addUser = () => {
+    const originalUsers = [...users];
+
+    const newUser: User = {
+      id: 0,
+      name: 'Ace',
+    };
+
+    setUsers([newUser, ...users]);
+
+    axios
+      .post('https://jsonplaceholder.typicode.com/users', newUser)
+      .then((res) => {
+        setUsers([res.data, ...users]);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+      });
+  };
+
   const deleteUser = (user: User) => {
     const originalUsers = [...users];
     setUsers(users.filter((u) => u !== user));
@@ -50,6 +71,11 @@ function App() {
     <>
       {isLoading && <div className="spinner-border"></div>}
       {error && <p className="text-danger">{error}</p>}
+
+      <button className="btn btn-primary mb-3" onClick={addUser}>
+        Add
+      </button>
+
       <ul className="list-group">
         {users.map((user) => (
           <li
