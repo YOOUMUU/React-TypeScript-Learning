@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
-import apiClient, { CanceledError } from './services/api-client';
-
-interface User {
-  id: number;
-  name: string;
-}
+import { CanceledError } from './services/api-client';
+import userService, { User } from './services/user-service';
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -21,8 +17,8 @@ function App() {
 
     setUsers([newUser, ...users]);
 
-    apiClient
-      .post('/users', newUser)
+    userService
+      .addUser(newUser)
       .then((res) => {
         setUsers([res.data, ...users]);
       })
@@ -36,7 +32,7 @@ function App() {
     const originalUsers = [...users];
     setUsers(users.filter((u) => u !== user));
 
-    apiClient.delete('/users/' + user.id).catch((err) => {
+    userService.deleteUser(user.id).catch((err) => {
       setError(err.message);
       setUsers(originalUsers);
     });
@@ -48,21 +44,18 @@ function App() {
 
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    apiClient.patch('/users/' + user.id, updateUser).catch((err) => {
+    userService.updateUser(updatedUser).catch((err) => {
       setError(err.message);
       setUsers(originalUsers);
     });
   };
 
   useEffect(() => {
-    const controller = new AbortController();
-
     setLoading(true);
 
-    apiClient
-      .get<User[]>('/users', {
-        signal: controller.signal,
-      })
+    const { request, cancel } = userService.getAllUsers();
+
+    request
       .then((res) => {
         setUsers(res.data);
         setLoading(false);
@@ -74,17 +67,16 @@ function App() {
       });
     // .finally(() => setLoading(false));
 
-    return () => controller.abort();
+    return () => cancel();
   }, []);
 
   return (
     <>
-      {isLoading && <div className="spinner-border"></div>}
-      {error && <p className="text-danger">{error}</p>}
-
       <button className="btn btn-primary mb-3" onClick={addUser}>
         Add
       </button>
+      {isLoading && <div className="spinner-border"></div>}
+      {error && <p className="text-danger">{error}</p>}
 
       <ul className="list-group">
         {users.map((user) => (
